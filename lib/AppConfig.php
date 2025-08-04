@@ -4,7 +4,7 @@ namespace OCA\Cadviewer;
 
 
 use OCP\IConfig;
-use OCP\ILogger;
+use Psr\Log\LoggerInterface;
 
 /**
  * Application configutarion
@@ -94,12 +94,11 @@ class AppConfig {
     /** 
      * @param string $AppName - application name
      */
-    public function __construct($AppName) {
+    public function __construct($AppName, LoggerInterface $logger, IConfig $config) {
 
         $this->appName = $AppName;
-
-        $this->config = \OC::$server->getConfig();
-        $this->logger = \OC::$server->getLogger();
+        $this->config = $config;
+        $this->logger = $logger;
     }
 
     public function GetSystemValue($key, $system = false) {
