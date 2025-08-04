@@ -1,44 +1,28 @@
 <?php
 namespace OCA\Cadviewer\Controller;
 
+use OCA\Cadviewer\AppConfig;
+
 use OCP\AppFramework\Controller;
 use OCP\AppFramework\Http\TemplateResponse;
 use OCP\AppFramework\Http;
 use OCP\AppFramework\Http\JSONResponse;
 use OCP\IL10N;
-use OCP\ILogger;
 use OCP\IRequest;
 use OCP\IURLGenerator;
-
-
-use OCA\Cadviewer\AppConfig;
+use Psr\Log\LoggerInterface;
 
 class SettingsController extends Controller {
 
-    private $trans;
-    private $logger;
-    private $urlGenerator;
-
-    /**
-     * Application configuration
-     *
-     * @var AppConfig
-     */
-    private $config;
-
-    public function __construct($AppName,
-                                    IRequest $request,
-                                    IURLGenerator $urlGenerator,
-                                    IL10N $trans,
-                                    ILogger $logger,
-                                    AppConfig $config
-                                    ) {
+    public function __construct(
+	    $AppName,
+        IRequest $request,
+        private IURLGenerator $urlGenerator,
+        private IL10N $trans,
+        private LoggerInterface $logger,
+        private AppConfig $config,
+    ) {
         parent::__construct($AppName, $request);
-
-        $this->urlGenerator = $urlGenerator;
-        $this->trans = $trans;
-        $this->logger = $logger;
-        $this->config = $config;
     }
 
     /**
