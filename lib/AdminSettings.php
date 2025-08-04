@@ -1,22 +1,21 @@
 <?php
+
 namespace OCA\Cadviewer;
 
 use OCP\Settings\ISettings;
 
-use OCA\Cadviewer\AppInfo\Application;
 use OCA\Cadviewer\Controller\SettingsController;
 
 
 class AdminSettings implements ISettings {
 
-    public function __construct() {
+    public function __construct(
+        private SettingsController $settings,
+    ) {
     }
 
-
     public function getForm() {
-        $app = \OC::$server->query(Application::class);
-        $container = $app->getContainer();
-        $response = $container->query(SettingsController::class)->index();
+        $response = $settings->index();
         return $response;
     }
 
